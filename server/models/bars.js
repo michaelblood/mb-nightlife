@@ -5,4 +5,4 @@ const schema = new mongoose.Schema({
   visitors: [ String ],
 });
 
-module.exports = mongoose.model('Businesses', schema);
+module.exports = mongoose.model('Bars', schema);

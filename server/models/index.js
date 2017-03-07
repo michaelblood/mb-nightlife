@@ -1,4 +1,4 @@
 module.exports = {
-  Businesses: require('./businesses'),
+  Bars: require('./bars'),
   Users: require('./users')
 };

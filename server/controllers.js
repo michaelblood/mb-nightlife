@@ -1,13 +1,13 @@
 const Yelp = require('yelp');
-const assert = require('assert');
+
 const {
   YELP_CONSUMER_KEY,
   YELP_CONSUMER_SECRET,
   YELP_TOKEN,
-  YELP_TOKEN_SECRET
-} = !!process.env.YELP_CONSUMER_KEY ? process.env : require('./config/config');
+  YELP_TOKEN_SECRET,
+} = process.env.YELP_CONSUMER_KEY ? process.env : require('./config/config');
 
-const { Businesses, Users } = require('./models');
+const { Bars } = require('./models');
 
 const yelp = new Yelp({
   consumer_key: YELP_CONSUMER_KEY,
@@ -16,43 +16,75 @@ const yelp = new Yelp({
   token_secret: YELP_TOKEN_SECRET,
 });
 
-
-const parseBusinesses = (input) => {
-  const businesses = input.businesses;
-  let parsed = [];
-  if (!businesses) {
+const parseBars = (input) => {
+  const bars = input.businesses;
+  if (!bars) {
     return input;
   }
-  businesses.map((b) => {
-    let business = {
-      _id: b.id,
-      visitors: [],
-      name: b.name,
-      description: b.snippet_text,
-      thumbnail: b.image_url,
-      rating: b.rating
-    }
-    parsed.push(business);
-  });
+  const parsed = bars.map(b => ({
+    _id: b.id,
+    name: b.name,
+    description: b.snippet_text,
+    thumbnail: b.image_url,
+    rating: b.rating,
+    visitors: [],
+  }));
   return parsed;
 };
 
+const getVisitors = (bars) => {
+  const ids = bars.map(bar => bar._id);
+  return Bars.find({ _id: { $in: ids } })
+    .then((docs) => {
+      if (docs.length === 0) {
+        return bars;
+      }
+      docs.forEach((doc) => {
+        const i = ids.indexOf(doc._id);
+        if (i >= 0) {
+          bars[i].visitors = doc.visitors;
+        }
+      });
+      return bars;
+    }).catch(console.log);
+};
 
 const searchYelp = (location, offset = 0) => {
   if (!location) {
-    return Promise.reject(new Error('missing parameter: location'));
+    return Promise.resolve(3);//Promise.reject(new Error('missing parameter: location'));
   }
   const params = { category_filter: 'bars', location, offset };
   return yelp.search(params)
-    .then(parseBusinesses)
-    .then(businesses => {
-      if (businesses.error) {
-        throw new Error(businesses.error.id);
+    .then(parseBars)
+    .then(getVisitors)
+    .then((bars) => {
+      if (bars.error) {
+        throw new Error(bars.error.id);
       }
-      return businesses;
+      return bars;
+    });
+};
+
+const toggleVisiting = (barId, userId) => {
+  return Bars.findById(barId)
+    .then((bar) => {
+      if (!bar) {
+        return Bars.create({
+          _id: barId,
+          visitors: [ userId ]
+        });
+      }
+      const index = bar.visitors.indexOf(userId);
+      if (index < 0) {
+        bar.visitors.push(userId);
+        return bar.save();
+      }
+      bar.visitors = bar.visitors.splice(index, 0);
+      return bar.save();
     });
 };
 
 module.exports = {
   searchYelp,
+  toggleVisiting,
 };
