@@ -1,6 +1,8 @@
+const path = require('path');
+
 const { searchYelp, toggleVisiting, } = require('./controllers');
 
-module.exports = (app) => {
+module.exports = (app, passport) => {
   app.get('/api/search', (req, res) => {
     const { location, offset } = req.body;
 
@@ -18,15 +20,15 @@ module.exports = (app) => {
       .catch(err => res.json({ error: err.toString() }));
   });
 
-  app.get('/auth/twitter');
-  app.get('/auth/twitter/callback');
+  app.get('/auth/twitter/callback', passport.authenticate('twitter', {
+    successRedirect: '/',
+    failureRedirect: '/',
+    failureFlash: true
+  }));
+  app.get('/auth/twitter', passport.authenticate('twitter'));
   
-  app.get('/', (req, res) => {
+  app.get('*', (req, res) => {
     // landing page
-    res.status(200).end('landing page');
-  });
-
-  app.get('/*', (req, res) => {
-    res.redirect('/');
+    res.status(200).sendFile(path.join(__dirname, '..', 'public', 'index.html'));
   });
 };

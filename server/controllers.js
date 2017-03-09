@@ -1,11 +1,6 @@
 const Yelp = require('yelp');
 
-const {
-  YELP_CONSUMER_KEY,
-  YELP_CONSUMER_SECRET,
-  YELP_TOKEN,
-  YELP_TOKEN_SECRET,
-} = process.env.YELP_CONSUMER_KEY ? process.env : require('./config/config');
+const { YELP_CONSUMER_KEY, YELP_CONSUMER_SECRET, YELP_TOKEN, YELP_TOKEN_SECRET, } = process.env;
 
 const { Bars } = require('./models');
 
@@ -51,7 +46,7 @@ const getVisitors = (bars) => {
 
 const searchYelp = (location, offset = 0) => {
   if (!location) {
-    return Promise.resolve(3);//Promise.reject(new Error('missing parameter: location'));
+    Promise.reject(new Error('missing parameter: location'));
   }
   const params = { category_filter: 'bars', location, offset };
   return yelp.search(params)
