@@ -11,12 +11,12 @@ class SearchBar extends Component {
       <div>
         <label
           htmlFor="search-bar"
-          className="hidden-md-up"
+          className="hidden-md-up search-label-mobile"
         >
-          Bars in...
+          Search for bars in...
         </label>
         <div className="input-group input-group-lg">
-          <span className="input-group-addon hidden-sm-down bg-faded" id="search-addon">Bars in...</span>
+          <span className="input-group-addon search-label hidden-sm-down" id="search-addon">Bars in...</span>
           <input 
             type="text"
             id="search-bar"
@@ -30,7 +30,7 @@ class SearchBar extends Component {
             <input
               type="submit"
               role="button"
-              className="btn btn-secondary bg-faded"
+              className="btn"
               value="&#xf002;"
               charSet="utf-8"
               onClick={() => {

@@ -8,6 +8,7 @@ class App extends Component {
     super(props);
     this.state = {
       search: props.previous || '',
+      current: null,
       results: [],
     };
   }
@@ -33,14 +34,17 @@ class App extends Component {
   }
 
   render() {
-    const { search } = this.state;
+    const { search, results, current } = this.state;
     return (
       <div>
         <PageTitle
           handleSubmit={(text) => this.handleSubmit(text)}
           defaultSearch={search}
         />
-        <Results data={this.state.results}/>
+        <Results
+          data={results}
+          current={current}
+        />
       </div>
     );
   }

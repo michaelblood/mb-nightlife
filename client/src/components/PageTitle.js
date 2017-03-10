@@ -3,10 +3,10 @@ import React, { PropTypes } from 'react';
 import SearchBar from './SearchBar';
 
 const PageTitle = ({ defaultSearch, handleSubmit }) => (
-  <div className="jumbotron page-title bg-inverse" style={{borderRadius: '0%'}}>
+  <div className="jumbotron page-heading" style={{borderRadius: '0%'}}>
     <div className="container">
-      <h1 className="page-heading text-white">mb-nightlife</h1>
-      <hr style={{borderColor: '#f7f7f7'}}/>
+      <h1 className="page-title">mb-nightlife</h1>
+      <hr className="hr-title"/>
       <SearchBar
         previous={defaultSearch}
         handleSubmit={(text) => handleSubmit(text)}

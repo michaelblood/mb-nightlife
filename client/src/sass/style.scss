@@ -1,0 +1,55 @@
+// vars
+$dark-primary-color: #455A64;
+$primary-color: #607D8B;
+$light-primary-color: #CFD8DC;
+$accent-color: #536DFE;
+$dark-accent-color: #3d5afe;
+
+$primary-text-color: #212121;
+$secondary-text-color: #757575;
+$divider-color: #BDBDBD;
+$white: #FFFFFF;
+
+@import "font-awesome/scss/font-awesome";
+
+/* page title styles */
+.jumbotron {
+  background: $primary-color;
+  color: $white;
+  border-top: 50px solid $dark-primary-color;
+}
+hr {
+  border-color: $light-primary-color;
+  border-width: 3px;
+}
+
+.search-bar {
+  color: $primary-text-color;
+}
+
+input[type="submit"] {
+  font-family: FontAwesome;
+  background: $accent-color;
+  color: $white;
+
+  &:hover {
+    background: $dark-accent-color;
+    box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.2);
+  }
+}
+
+input[type="text"] {
+  box-sizing: border-box;
+  
+  &:focus {
+    outline: solid 1px $accent-color;
+  }
+}
+.search-label {
+  background: $dark-primary-color;
+  color: $white;
+  
+  &-mobile {
+    color: $white;
+  }
+}

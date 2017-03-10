@@ -13,15 +13,20 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin()
   ] : [],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015', 'react', 'stage-2']
-        }
-      }
-    ]
+        loader: 'babel-loader?presets[]=es2015&presets[]=react&presets[]=stage-2'
+      },
+
+      { test: /\.scss$/,                      loader: ['style-loader', 'css-loader', 'sass-loader'] },
+
+      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,   loader: 'file-loader?mimetype=image/svg+xml' },
+      { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,  loader: "file-loader?mimetype=application/font-woff" },
+      { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader?mimetype=application/font-woff" },
+      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,   loader: "file-loader?mimetype=application/octet-stream" },
+      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,   loader: "file-loader" }
+    ],
   }
 }
