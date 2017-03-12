@@ -92,7 +92,8 @@ class App extends Component {
         }
         self.setState(previous => {
           let bars = previous.results.slice();
-          bars[index] = bar.bar;
+          console.log(bar);
+          bars[index].visitors = bar.bar.visitors;
           return {
             ...previous,
             results: bars,
