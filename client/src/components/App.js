@@ -8,33 +8,38 @@ class App extends Component {
     super(props);
     this.state = {
       search: props.previous || '',
-      current: null,
       results: [],
+      fetching: false,
     };
   }
 
+  componentDidMount() {
+    if (!localStorage.getItem('previousSearch')) return;
+    this.handleSubmit(localStorage.getItem('previousSearch'));
+  }
+
   handleSubmit(text) {
-    this.setState({ search: text });
+    this.setState({
+      search: text,
+      fetching: true,
+    });
     window.localStorage.setItem('previousSearch', text);
-    this.setState(prevState => {
-      return {
-        results: [
-          ...prevState.results,
-          {
-            _id: 'the_bar_thing',
-            name: 'The Bar Thing',
-            description: 'sample bar thing text and stuff',
-            thumbnail: null,
-            rating: 5,
-            visitors: ['justone'],
-          }
-        ]
-      }
-    })
+    fetch(`/api/search?location=${text}`)
+      .then(response => response.json())
+      .then(json => {
+        this.setState({
+          results: json.bars,
+          fetching: false
+        });
+      }).catch(console.log);
+  }
+
+  toggleVisiting(id) {
+    console.log(`toggling visiting for ${id}`);
   }
 
   render() {
-    const { search, results, current } = this.state;
+    const { search, results, } = this.state;
     return (
       <div>
         <PageTitle
@@ -42,8 +47,8 @@ class App extends Component {
           defaultSearch={search}
         />
         <Results
-          data={results}
-          current={current}
+          bars={results}
+          onClick={(id) => this.toggleVisiting(id)}
         />
       </div>
     );

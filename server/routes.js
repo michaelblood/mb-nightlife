@@ -4,11 +4,11 @@ const { searchYelp, toggleVisiting, } = require('./controllers');
 
 module.exports = (app, passport) => {
   app.get('/api/search', (req, res) => {
-    const { location, offset } = req.body;
+    const { location, offset } = req.query;
 
-    return searchYelp(location, Number(offset))
+    return searchYelp(location, Number(offset || 0))
       .then(bars => res.json({ bars }))
-      .catch(err => res.json({ error: err.toString() }));
+      .catch(err => res.json({ error: err }));
   });
 
   app.get('/api/toggle', (req, res) => {

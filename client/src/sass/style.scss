@@ -12,6 +12,10 @@ $white: #FFFFFF;
 
 @import "font-awesome/scss/font-awesome";
 
+body {
+  color: $primary-text-color;
+}
+
 /* page title styles */
 .jumbotron {
   background: $primary-color;
@@ -34,7 +38,6 @@ input[type="submit"] {
 
   &:hover {
     background: $dark-accent-color;
-    box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.2);
   }
 }
 
@@ -53,3 +56,24 @@ input[type="text"] {
     color: $white;
   }
 }
+
+// .bar-item {
+//   // background: $light-primary-color;
+//   // border: solid 1px $dark-primary-color;
+//   border-left: solid 9px $primary-color;
+// }
+
+// .heading-wrapper {
+//   display: flex;
+//   justify-content: center;
+// }
+
+// .thumbnail-wrapper {
+//   width: 120px;
+//   display: flex;
+//   align-items: center;
+// }
+
+// .item-wrapper {
+//   display:flex;
+// }

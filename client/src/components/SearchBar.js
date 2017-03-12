@@ -8,7 +8,7 @@ class SearchBar extends Component {
   render() {
     const { handleSubmit, previous } = this.props;
     return (
-      <div>
+      <div className="col">
         <label
           htmlFor="search-bar"
           className="hidden-md-up search-label-mobile"
@@ -16,7 +16,12 @@ class SearchBar extends Component {
           Search for bars in...
         </label>
         <div className="input-group input-group-lg">
-          <span className="input-group-addon search-label hidden-sm-down" id="search-addon">Bars in...</span>
+          <span
+            className="input-group-addon search-label hidden-sm-down"
+            id="search-addon"
+          >
+            Bars in...
+          </span>
           <input 
             type="text"
             id="search-bar"

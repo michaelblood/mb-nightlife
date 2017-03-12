@@ -1,32 +1,32 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
-import BarInfo from './BarInfo';
+import ResultItem from './ResultItem';
 
-const renderIndividuals = (results) => {
-  return (
-    <div></div>
-  )
+const renderBars = (bars = [], onClick) => {
+  return bars.map((bar) => (
+    <ResultItem
+      key={bar._id}
+      bar={bar}
+      onClick={() => onClick(bar._id)}
+    />
+  ));
 };
 
-const Results = ({ data, current }) => {
+const Results = ({ bars, onClick }) => {
   return (
-    <div>
-      
+    <div className="container">
+      <div className="row bar-list">
+        <div className="col">
+          {renderBars(bars, onClick)}
+        </div>
+      </div>
     </div>
   );
 };
 
-const BarType = PropTypes.shape({
-  _id: PropTypes.string,
-  name: PropTypes.string,
-  description: PropTypes.string,
-  thumbnail: PropTypes.string,
-  rating: PropTypes.number,
-  visitors: PropTypes.arrayOf(PropTypes.string),
-});
 Results.propTypes = {
-  data: PropTypes.arrayOf(BarType),
-  current: BarType
+  bars: PropTypes.arrayOf(PropTypes.object),
+  onClick: PropTypes.func,
 };
 
 export default Results;
