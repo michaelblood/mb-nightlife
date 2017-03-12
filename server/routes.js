@@ -11,13 +11,20 @@ module.exports = (app, passport) => {
       .catch(err => res.json({ error: err }));
   });
 
-  app.get('/api/toggle', (req, res) => {
+  app.post('/api/toggle', (req, res) => {
     if (!req.user) {
       return res.json({ error: 'not authenticated' });
     }
     return toggleVisiting(req.body.barId, req.user._id)
       .then(bar => res.json({ bar }))
       .catch(err => res.json({ error: err.toString() }));
+  });
+
+  app.get('/api/is-logged-in', (req, res) => {
+    if (!req.user) {
+      return res.json({ user: null });
+    }
+    return res.json({ user: req.user });
   });
 
   app.get('/auth/twitter/callback', passport.authenticate('twitter', {

@@ -57,23 +57,84 @@ input[type="text"] {
   }
 }
 
-// .bar-item {
-//   // background: $light-primary-color;
-//   // border: solid 1px $dark-primary-color;
-//   border-left: solid 9px $primary-color;
-// }
+.bar-card {
+  margin-left: 7px !important;
+  margin-right: 7px !important;
+  border-color: $dark-primary-color;
+}
 
-// .heading-wrapper {
-//   display: flex;
-//   justify-content: center;
-// }
+.heading-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: $light-primary-color;
+  border-color: $dark-primary-color;
 
-// .thumbnail-wrapper {
-//   width: 120px;
-//   display: flex;
-//   align-items: center;
-// }
+  .img-wrapper img {
+    border: 2px solid $dark-primary-color;
+  }
 
-// .item-wrapper {
-//   display:flex;
-// }
+  h4 {
+    padding-left: 10px;
+    border-left: 7px solid $primary-color;
+
+    a {
+      color: $primary-text-color;
+    }
+  }
+}
+
+.bar-card .card-block {
+  .btn {
+    color: $dark-accent-color;
+    border-color: $dark-accent-color;
+
+    &:hover {
+      color: $white;
+      border-color: $dark-accent-color;
+      background: $dark-accent-color;
+      cursor: pointer;
+    }
+  }
+}
+
+.login-modal {
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparentize($primary-color, 0.5);
+}
+
+.modal-btn {
+  color: $white;
+  border-color: $dark-primary-color;
+  background-color: $primary-color;
+
+  &:hover {
+    color: $primary-color;
+    border-color: $primary-color;
+    background-color: $white;
+  }
+}
+
+.login-modal {
+  .card {
+    border-color: $dark-primary-color;
+
+    .card-header {
+      background-color: $primary-color;
+      color: $white;
+    }
+
+    .card-block {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

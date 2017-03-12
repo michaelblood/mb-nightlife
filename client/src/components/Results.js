@@ -3,11 +3,11 @@ import React, { Component, PropTypes } from 'react';
 import ResultItem from './ResultItem';
 
 const renderBars = (bars = [], onClick) => {
-  return bars.map((bar) => (
+  return bars.map((bar, index) => (
     <ResultItem
       key={bar._id}
       bar={bar}
-      onClick={() => onClick(bar._id)}
+      onClick={() => onClick(index)}
     />
   ));
 };
@@ -15,10 +15,8 @@ const renderBars = (bars = [], onClick) => {
 const Results = ({ bars, onClick }) => {
   return (
     <div className="container">
-      <div className="row bar-list">
-        <div className="col">
-          {renderBars(bars, onClick)}
-        </div>
+      <div className="card-deck bar-list">
+        {renderBars(bars, onClick)}
       </div>
     </div>
   );

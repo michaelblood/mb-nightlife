@@ -18,10 +18,12 @@ const parseBars = (input) => {
   }
   const parsed = bars.map(b => ({
     _id: b.id,
+    url: b.url,
     name: b.name,
     description: b.snippet_text,
     thumbnail: b.image_url,
     rating: b.rating,
+    ratingImg: b.rating_img_url,
     visitors: [],
   }));
   return parsed;
