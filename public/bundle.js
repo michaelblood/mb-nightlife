@@ -10072,7 +10072,6 @@ var App = function (_Component) {
         }
         self.setState(function (previous) {
           var bars = previous.results.slice();
-          console.log(bar);
           bars[index].visitors = bar.bar.visitors;
           return _extends({}, previous, {
             results: bars
